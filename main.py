@@ -21,6 +21,14 @@ class Player(pygame.sprite.Sprite):
             image = pygame.image.load(str(img_path)).convert_alpha()
             image = pygame.transform.scale(image, (128, 128))
             self.idle_frames.append(image)
+        
+        run_dir = Path(__file__).parent / "assets" / "DetectiveFromTheFutur" / "Run"
+        self.run_frames = []
+        for i in range(1, 9):
+            img_path = run_dir / f"Run_{i:02}.png"
+            image = pygame.image.load(str(img_path)).convert_alpha()
+            image = pygame.transform.scale(image, (128, 128))
+            self.run_frames.append(image)
 
         self.frame_index = 0
         self.image = self.idle_frames[self.frame_index]
@@ -33,6 +41,8 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, keys):
         moved = False
+        left = False  # Flag für Linksbewegung
+
         if keys[pygame.K_w]:
             self.rect.y -= self.speed
             moved = True
@@ -42,20 +52,30 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_a]:
             self.rect.x -= self.speed
             moved = True
+            left = True
         if keys[pygame.K_d]:
             self.rect.x += self.speed
             moved = True
 
-        # Idle-Animation nur wenn Spieler nicht bewegt wird
         if not moved:
+        # Idle-Animation
+            self.animation_speed = 150
             now = pygame.time.get_ticks()
             if now - self.animation_timer > self.animation_speed:
                 self.animation_timer = now
                 self.frame_index = (self.frame_index + 1) % len(self.idle_frames)
                 self.image = self.idle_frames[self.frame_index]
         else:
-            # Wenn du später Run-Frames hast, kannst du hier wechseln
-            self.image = self.idle_frames[0]
+            # Run-Animation
+            self.animation_speed = 50
+            now = pygame.time.get_ticks()
+            if now - self.animation_timer > self.animation_speed:
+                self.animation_timer = now
+                self.frame_index = (self.frame_index + 1) % len(self.run_frames)
+                frame = self.run_frames[self.frame_index]
+                if left:
+                    frame = pygame.transform.flip(frame, True, False)
+                self.image = frame
 
 player = Player(400, 300)
 
