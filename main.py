@@ -10,33 +10,55 @@ pygame.display.set_caption("Time Detective")
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 
-# Spielerklasse mit Sprite
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        # relativer Pfad zum Bild
-        image_path = Path(__file__).parent / "assets" / "DetectiveFromTheFutur" / "Idle" / "Idle_01.png"
-        image = pygame.image.load(str(image_path)).convert_alpha()
-        # Bild skalieren (z. B. auf 64x64 Pixel)
-        self.image = pygame.transform.scale(image, (128, 128))
-        # Rechteck für Position
+        # Idle-Frames laden
+        idle_dir = Path(__file__).parent / "assets" / "DetectiveFromTheFutur" / "Idle"
+        self.idle_frames = []
+        for i in range(1, 9):  # Idle_01 bis Idle_08
+            img_path = idle_dir / f"Idle_{i:02}.png"
+            image = pygame.image.load(str(img_path)).convert_alpha()
+            image = pygame.transform.scale(image, (128, 128))
+            self.idle_frames.append(image)
+
+        self.frame_index = 0
+        self.image = self.idle_frames[self.frame_index]
         self.rect = self.image.get_rect(center=(x, y))
         self.speed = 5
 
+        # Timer für Animation
+        self.animation_timer = 0
+        self.animation_speed = 150  # Millisekunden pro Frame
+
     def update(self, keys):
+        moved = False
         if keys[pygame.K_w]:
             self.rect.y -= self.speed
+            moved = True
         if keys[pygame.K_s]:
             self.rect.y += self.speed
+            moved = True
         if keys[pygame.K_a]:
             self.rect.x -= self.speed
+            moved = True
         if keys[pygame.K_d]:
             self.rect.x += self.speed
+            moved = True
 
-# Spieler erstellen
+        # Idle-Animation nur wenn Spieler nicht bewegt wird
+        if not moved:
+            now = pygame.time.get_ticks()
+            if now - self.animation_timer > self.animation_speed:
+                self.animation_timer = now
+                self.frame_index = (self.frame_index + 1) % len(self.idle_frames)
+                self.image = self.idle_frames[self.frame_index]
+        else:
+            # Wenn du später Run-Frames hast, kannst du hier wechseln
+            self.image = self.idle_frames[0]
+
 player = Player(400, 300)
 
-# Weltobjekte
 world_objects = [
     pygame.Rect(100, 100, 100, 100),
     pygame.Rect(600, 400, 150, 150),
@@ -54,19 +76,17 @@ while True:
     keys = pygame.key.get_pressed()
     player.update(keys)
 
-    # Kamera folgt Spieler → Offset berechnen
+    # Kamera folgt Spieler
     camera_x = player.rect.x - WIDTH // 2
     camera_y = player.rect.y - HEIGHT // 2
 
-    # Bildschirm füllen
     screen.fill(WHITE)
 
-    # Weltobjekte zeichnen mit Kamera-Offset
     for obj in world_objects:
         pygame.draw.rect(screen, GREEN,
                          (obj.x - camera_x, obj.y - camera_y, obj.width, obj.height))
 
-    # Spieler zeichnen (immer mittig auf dem Bildschirm)
+    # Spieler zeichnen (immer mittig)
     screen.blit(player.image, (WIDTH // 2 - player.image.get_width()//2,
                                HEIGHT // 2 - player.image.get_height()//2))
 
