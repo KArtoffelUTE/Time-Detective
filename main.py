@@ -21,7 +21,8 @@ class Player(pygame.sprite.Sprite):
             image = pygame.image.load(str(img_path)).convert_alpha()
             image = pygame.transform.scale(image, (128, 128))
             self.idle_frames.append(image)
-        
+            
+        # Run-Frames laden
         run_dir = Path(__file__).parent / "assets" / "DetectiveFromTheFutur" / "Run"
         self.run_frames = []
         for i in range(1, 9):
@@ -32,30 +33,45 @@ class Player(pygame.sprite.Sprite):
 
         self.frame_index = 0
         self.image = self.idle_frames[self.frame_index]
-        self.rect = self.image.get_rect(center=(x, y))
+
+        # Eigene Hitbox definieren (kleiner als Bild)
+        self.rect = pygame.Rect(0, 0, 32, 50)
+        self.rect.center = (x, y+100)
+
         self.speed = 5
 
         # Timer für Animation
         self.animation_timer = 0
         self.animation_speed = 150  # Millisekunden pro Frame
 
-    def update(self, keys):
+    def check_collision(self, new_rect, obstacles):
+        for obj in obstacles:
+            if new_rect.colliderect(obj):
+                return True
+        return False
+
+    def update(self, keys, obstacles):
         moved = False
         left = False  # Flag für Linksbewegung
+        dx, dy = 0, 0
 
         if keys[pygame.K_w]:
-            self.rect.y -= self.speed
+            dy = -self.speed
             moved = True
         if keys[pygame.K_s]:
-            self.rect.y += self.speed
+            dy = self.speed
             moved = True
         if keys[pygame.K_a]:
-            self.rect.x -= self.speed
+            dx = -self.speed
             moved = True
             left = True
         if keys[pygame.K_d]:
-            self.rect.x += self.speed
+            dx = self.speed
             moved = True
+        
+        new_rect = self.rect.move(dx, dy)
+        if not self.check_collision(new_rect, obstacles):
+            self.rect = new_rect
 
         if not moved:
         # Idle-Animation
@@ -77,13 +93,13 @@ class Player(pygame.sprite.Sprite):
                     frame = pygame.transform.flip(frame, True, False)
                 self.image = frame
 
-player = Player(400, 300)
-
 world_objects = [
     pygame.Rect(100, 100, 100, 100),
     pygame.Rect(600, 400, 150, 150),
     pygame.Rect(1000, 200, 200, 200)
 ]
+
+player = Player(400, 300)
 
 clock = pygame.time.Clock()
 
@@ -94,7 +110,7 @@ while True:
             sys.exit()
 
     keys = pygame.key.get_pressed()
-    player.update(keys)
+    player.update(keys, world_objects)
 
     # Kamera folgt Spieler
     camera_x = player.rect.x - WIDTH // 2
@@ -107,8 +123,14 @@ while True:
                          (obj.x - camera_x, obj.y - camera_y, obj.width, obj.height))
 
     # Spieler zeichnen (immer mittig)
-    screen.blit(player.image, (WIDTH // 2 - player.image.get_width()//2,
-                               HEIGHT // 2 - player.image.get_height()//2))
+    screen.blit(player.image,
+            (player.rect.centerx - camera_x - player.image.get_width() // 2,
+             player.rect.centery - camera_y - player.image.get_height() // 2 -10))
+    pygame.draw.rect(screen, (255, 0, 0),
+                 (player.rect.x - camera_x,
+                  player.rect.y - camera_y,
+                  player.rect.width,
+                  player.rect.height), 2)
 
     pygame.display.flip()
     clock.tick(60)
