@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite):
 
         # Eigene Hitbox definieren (kleiner als Bild)
         self.rect = pygame.Rect(0, 0, 32, 50)
-        self.rect.center = (x, y+100)
+        self.rect.center = (x, y)
 
         self.speed = 5
 

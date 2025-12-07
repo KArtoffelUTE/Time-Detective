@@ -1,6 +1,6 @@
 import pygame, sys
 from player import Player
-from tilemaps import get_tilemap, TILE_SIZE
+from tilemaps import get_tilemap,draw_tilemap, get_obstacles, TILE_SIZE, room_spawns
 
 pygame.init()
 
@@ -10,42 +10,15 @@ pygame.display.set_caption("Time Detective")
 
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
-
+player = Player(500, 500)
 current_floor = 1
 current_room = "lobby"
 tilemap = get_tilemap(current_floor, current_room)
-
-def draw_tilemap(screen, camera_x, camera_y, tilemap):
-    for row_index, row in enumerate(tilemap):
-        for col_index, tile in enumerate(row):
-            x = col_index * TILE_SIZE - camera_x
-            y = row_index * TILE_SIZE - camera_y
-
-            if tile == 0:  # Boden
-                color = (200, 200, 200)
-            elif tile == 1:  # Wand
-                color = (100, 100, 100)
-            elif tile == 2:  # Treppe
-                color = (0, 0, 255)
-            elif tile == 3: #Treppe runter
-                color = (0, 255, 0)
-
-            pygame.draw.rect(screen, color, (x, y, TILE_SIZE, TILE_SIZE))
-
-def get_obstacles(tilemap):
-    obstacles = []
-    for row_index, row in enumerate(tilemap):
-        for col_index, tile in enumerate(row):
-            if tile == 1:  # nur Wände sind solid
-                rect = pygame.Rect(col_index * TILE_SIZE,
-                                   row_index * TILE_SIZE,
-                                   TILE_SIZE, TILE_SIZE)
-                obstacles.append(rect)
-    return obstacles
+spawn_x, spawn_y = room_spawns[(current_room, current_floor)]
+player.rect.center = (spawn_x, spawn_y)
 
 
 
-player = Player(400, 300)
 
 clock = pygame.time.Clock()
 
@@ -57,7 +30,7 @@ while True:
         elif event.type == pygame.VIDEORESIZE:
             WIDTH, HEIGHT = event.w, event.h
             screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
-
+    print("Player Position:", player.rect.center)
     keys = pygame.key.get_pressed()
     obstacles = get_obstacles(tilemap)
     player.update(keys, obstacles)
@@ -65,17 +38,27 @@ while True:
     row = player.rect.centery // TILE_SIZE
     col = player.rect.centerx // TILE_SIZE
 
-    if tilemap[row][col] == 2:  # Treppe nach oben
-        current_floor = 2
-        current_room = "corridor"
-        tilemap = get_tilemap(current_floor, current_room)
-        player.rect.center = (100, 100)
+    if tilemap[row][col] == 2:  # Treppe hoch
+        print("Hier würde es nach oben gehen – Etage fehlt noch!")
+    elif tilemap[row][col] == 3:  # Treppe runter
+        print("Hier würde es nach unten gehen – Etage fehlt noch!")
+    
+    row = player.rect.centery // TILE_SIZE
+    col = player.rect.centerx // TILE_SIZE
 
-    elif tilemap[row][col] == 3:  # Treppe nach unten
-        current_floor = 1
-        current_room = "lobby"
+    if tilemap[row][col] == 4:  # Tür
+        if current_room == "lobby":
+            current_room = "restaurant"
+        elif current_room == "restaurant":
+            current_room = "kitchen"
+        elif current_room == "kitchen":
+            current_room = "restaurant"
+        
         tilemap = get_tilemap(current_floor, current_room)
-        player.rect.center = (100, 100)
+
+        # Spawn direkt auf der neuen Türposition
+        room_x, room_y = room_spawns[(current_room, current_floor)]
+        player.rect.center = (room_x, room_y)
 
     # Kamera folgt Spieler
     camera_x = player.rect.x - WIDTH // 2
