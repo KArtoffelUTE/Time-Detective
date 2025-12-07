@@ -1,70 +1,75 @@
 import pygame
 
-# Tilegröße (wir skalieren später Assets auf diese Größe)
 TILE_SIZE = 32
 
-# Beispiel-Lobby-Map (20x15 Tiles)
+# Lobby mit einer Tür ins Restaurant
 lobby_map = [
-    [1]*25,  # obere Wand
-]
-# mittlere Reihen mit Boden und Rezeption
-for i in range(18):
-    row = [1] + [0]*23 + [1]
-    if i == 2:
-        row[1:7] = [5,5,5,5,5,5]  # Rezeptionstresen
-    lobby_map.append(row)
-# untere Reihe mit Treppen
-row = [1] + [0]*20 + [4] + [2,3] + [1]
-lobby_map.append(row)
-# untere Wand
-lobby_map.append([1]*25)
-
-
-# Restaurant (25x20 Tiles)
-restaurant_map = [
     [1]*25,
 ]
 for i in range(18):
     row = [1] + [0]*23 + [1]
+    if i == 2:
+        row[5:11] = [5,5,5,5,5,5]  # Tresen
+    lobby_map.append(row)
+# unten: Tür ins Restaurant + Treppen
+row = [1] + [0]*10 + [4] + [0]*9 + [2,3] + [0, 1]
+lobby_map.append(row)
+lobby_map.append([1]*25)
+
+# Restaurant mit zwei Türen: links zur Lobby, rechts zur Küche
+restaurant_map = [
+    [1]*25,
+]
+for i in range(40):
+    row = [1] + [0]*23 + [1]
     if i == 5:
-        row[5:20:3] = [6,6,6,6,6]  # einfache Platzhalter für Tische
+        row[5:20:3] = [6,6,6,6,6]  # Tische
     restaurant_map.append(row)
-# Tür zurück zur Lobby
-row = [1] + [0]*11 + [4] + [0]*11 + [1]
+# vorletzte Reihe: Tür links zur Lobby, Tür rechts zur Küche
+row = [1] + [0]*5 + [4] + [0]*11 + [4] + [0]*5 + [1]
 restaurant_map.append(row)
 restaurant_map.append([1]*25)
 
-
-# Küche (15x15 Tiles)
+# Küche mit einer Tür ins Restaurant
 kitchen_map = [
     [1]*15,
 ]
 for i in range(13):
     row = [1] + [0]*13 + [1]
     if i == 3:
-        row[3:12] = [5,5,5,5,5,5,5,5,5]  # Arbeitsfläche
+        row[3:12] = [5]*9  # Arbeitsfläche
     kitchen_map.append(row)
-# Tür zurück zum Restaurant
-row = [1] + [0]*6 + [4] + [0]*7 + [1]
+# Tür zurück ins Restaurant
+row = [1] + [0]*6 + [4] + [0]*6 + [1]
 kitchen_map.append(row)
 kitchen_map.append([1]*15)
 
-# Farben für die Tiles
+# Farben
 tile_colors = {
     0: (200, 200, 200),  # Boden
     1: (100, 100, 100),  # Wand
     2: (0, 0, 255),      # Treppe hoch
     3: (0, 255, 0),      # Treppe runter
     4: (150, 75, 0),     # Tür
-    5: (255, 0, 0),      # Rezeptionstresen
+    5: (255, 0, 0),      # Tresen / Arbeitsfläche
     6: (180, 180, 50),   # Tisch
 }
+
+# Spawnpunkte direkt vor den passenden Türen
 room_spawns = {
-    ("lobby", 1): (200, 500),
-    ("restaurant", 1): (420, 550),
-    ("kitchen", 1): (260, 400),
+    ("lobby", 1, "to_restaurant"): (11*TILE_SIZE, 19*TILE_SIZE),   # Tür zur Restaurant
+    ("restaurant", 1, "to_lobby"): (6*TILE_SIZE, 41*TILE_SIZE),    # Tür zur Lobby
+    ("restaurant", 1, "to_kitchen"): (18*TILE_SIZE, 41*TILE_SIZE), # Tür zur Küche
+    ("kitchen", 1, "to_restaurant"): (7*TILE_SIZE, 14*TILE_SIZE),  # Tür zur Restaurant
 }
 
+# Tür-Verbindungen
+door_links = {
+    ("lobby", 1): ("restaurant", "to_lobby"),
+    ("restaurant", 1, "to_lobby"): ("lobby", "to_restaurant"),
+    ("restaurant", 1, "to_kitchen"): ("kitchen", "to_restaurant"),
+    ("kitchen", 1): ("restaurant", "to_kitchen"),
+}
 
 def get_tilemap(floor, room):
     if floor == 1 and room == "lobby":
@@ -75,7 +80,6 @@ def get_tilemap(floor, room):
         return kitchen_map
     else:
         raise ValueError("Tilemap nicht gefunden")
-
 
 def draw_tilemap(screen, camera_x, camera_y, tilemap):
     for row_index, row in enumerate(tilemap):
@@ -89,7 +93,7 @@ def get_obstacles(tilemap):
     obstacles = []
     for row_index, row in enumerate(tilemap):
         for col_index, tile in enumerate(row):
-            if tile == 1 or tile == 5:  # Wände und Tresen sind solid
+            if tile == 1 or tile == 5 or tile == 6:  # Wände, Tresen, Tische sind solid
                 rect = pygame.Rect(col_index * TILE_SIZE,
                                    row_index * TILE_SIZE,
                                    TILE_SIZE, TILE_SIZE)
