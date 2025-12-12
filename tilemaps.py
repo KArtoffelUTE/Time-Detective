@@ -2,7 +2,7 @@ import pygame
 
 TILE_SIZE = 32
 
-# Lobby mit einer Tür ins Restaurant
+# Lobby 
 lobby_map = [
     [1]*25,
 ]
@@ -11,12 +11,12 @@ for i in range(18):
     if i == 2:
         row[5:11] = [5,5,5,5,5,5]  # Tresen
     lobby_map.append(row)
-# unten: Tür ins Restaurant + Treppen
 row = [1] + [0]*10 + [4] + [0]*9 + [2,3] + [0, 1]
 lobby_map.append(row)
 lobby_map.append([1]*25)
 
-# Restaurant mit zwei Türen: links zur Lobby, rechts zur Küche
+
+# Restaurant 
 restaurant_map = [
     [1]*25,
 ]
@@ -25,12 +25,12 @@ for i in range(40):
     if i == 5:
         row[5:20:3] = [6,6,6,6,6]  # Tische
     restaurant_map.append(row)
-# vorletzte Reihe: Tür links zur Lobby, Tür rechts zur Küche
 row = [1] + [0]*5 + [4] + [0]*11 + [4] + [0]*5 + [1]
 restaurant_map.append(row)
 restaurant_map.append([1]*25)
 
-# Küche mit einer Tür ins Restaurant
+
+# Küche
 kitchen_map = [
     [1]*15,
 ]
@@ -39,10 +39,10 @@ for i in range(13):
     if i == 3:
         row[3:12] = [5]*9  # Arbeitsfläche
     kitchen_map.append(row)
-# Tür zurück ins Restaurant
 row = [1] + [0]*6 + [4] + [0]*6 + [1]
 kitchen_map.append(row)
 kitchen_map.append([1]*15)
+
 
 # Farben
 tile_colors = {
@@ -54,48 +54,3 @@ tile_colors = {
     5: (255, 0, 0),      # Tresen / Arbeitsfläche
     6: (180, 180, 50),   # Tisch
 }
-
-# Spawnpunkte direkt vor den passenden Türen
-room_spawns = {
-    ("lobby", 1, "to_restaurant"): (11*TILE_SIZE, 19*TILE_SIZE),   # Tür zur Restaurant
-    ("restaurant", 1, "to_lobby"): (6*TILE_SIZE, 41*TILE_SIZE),    # Tür zur Lobby
-    ("restaurant", 1, "to_kitchen"): (18*TILE_SIZE, 41*TILE_SIZE), # Tür zur Küche
-    ("kitchen", 1, "to_restaurant"): (7*TILE_SIZE, 14*TILE_SIZE),  # Tür zur Restaurant
-}
-
-# Tür-Verbindungen
-door_links = {
-    ("lobby", 1): ("restaurant", "to_lobby"),
-    ("restaurant", 1, "to_lobby"): ("lobby", "to_restaurant"),
-    ("restaurant", 1, "to_kitchen"): ("kitchen", "to_restaurant"),
-    ("kitchen", 1): ("restaurant", "to_kitchen"),
-}
-
-def get_tilemap(floor, room):
-    if floor == 1 and room == "lobby":
-        return lobby_map
-    elif floor == 1 and room == "restaurant":
-        return restaurant_map
-    elif floor == 1 and room == "kitchen":
-        return kitchen_map
-    else:
-        raise ValueError("Tilemap nicht gefunden")
-
-def draw_tilemap(screen, camera_x, camera_y, tilemap):
-    for row_index, row in enumerate(tilemap):
-        for col_index, tile in enumerate(row):
-            x = col_index * TILE_SIZE - camera_x
-            y = row_index * TILE_SIZE - camera_y
-            color = tile_colors.get(tile, (0, 0, 0))
-            pygame.draw.rect(screen, color, (x, y, TILE_SIZE, TILE_SIZE))
-
-def get_obstacles(tilemap):
-    obstacles = []
-    for row_index, row in enumerate(tilemap):
-        for col_index, tile in enumerate(row):
-            if tile == 1 or tile == 5 or tile == 6:  # Wände, Tresen, Tische sind solid
-                rect = pygame.Rect(col_index * TILE_SIZE,
-                                   row_index * TILE_SIZE,
-                                   TILE_SIZE, TILE_SIZE)
-                obstacles.append(rect)
-    return obstacles
