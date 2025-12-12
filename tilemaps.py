@@ -65,7 +65,7 @@ floor2_corridor.append(row)
 for i in range(8):
     row = [1] + [0]*25 + [1]  # langer Gang
     floor2_corridor.append(row)
-row = [1] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*8 + [1]
+row = [1] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*7 + [2] + [1]
 floor2_corridor.append(row)
 # untere Wand
 floor2_corridor.append([1]*27)
@@ -103,3 +103,14 @@ for i in range(13):
 row = [1] + [0]*6 + [4] + [0]*6 + [1]
 room03.append(row)
 room03.append([1]*15)
+
+# Raum04 (2. Etage)
+room04  = [
+    [1]*15
+]
+for i in range(13):
+    row = [1] + [0]*13 + [1]
+    room04.append(row)
+row = [1] + [0]*6 + [4] + [0]*6 + [1]
+room04.append(row)
+room04.append([1]*15)
