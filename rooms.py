@@ -93,7 +93,7 @@ rooms["floor2_corridor"] = Room(
         ),
         "to_room02": Door(
             "to_room02",
-            position=(1, 9),
+            position=(10, 17),
             target_room="room02",
             target_spawn="from_corridor"
         )
@@ -111,7 +111,7 @@ rooms["floor2_corridor"] = Room(
     spawns={
         "from_lobby": (21*TILE_SIZE, 2*TILE_SIZE),
         "from_room01": (18*TILE_SIZE, 2*TILE_SIZE),
-        "from_room02": (10*TILE_SIZE, 2*TILE_SIZE)
+        "from_room02": (18*TILE_SIZE, 9*TILE_SIZE)
     }
 )
 
