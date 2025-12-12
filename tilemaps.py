@@ -81,3 +81,14 @@ for i in range(13):
 row = [1] + [0]*6 + [4] + [0]*6 + [1]
 room01.append(row)
 room01.append([1]*15)
+
+# Raum02 (2. Etage)
+room02  = [
+    [1]*15
+]
+for i in range(13):
+    row = [1] + [0]*13 + [1]
+    room02.append(row)
+row = [1] + [0]*6 + [4] + [0]*6 + [1]
+room02.append(row)
+room02.append([1]*15)
