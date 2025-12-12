@@ -136,3 +136,18 @@ for i in range(13):
 row = [1] + [0]*6 + [4] + [0]*6 + [1]
 room06.append(row)
 room06.append([1]*15)
+
+
+#Flur Etage 3
+floor3_corridor = [
+    [1]*27,  # obere Wand
+]
+row = [1] + [4] + [0]*11 + [4] + [0]*11 + [3] + [1]
+floor3_corridor.append(row)
+for i in range(8):
+    row = [1] + [0]*25 + [1]  # langer Gang
+    floor3_corridor.append(row)
+row = [1] + [4] + [0]*11 + [4] + [0]*11 + [2] + [1]
+floor3_corridor.append(row)
+# untere Wand
+floor3_corridor.append([1]*27)
