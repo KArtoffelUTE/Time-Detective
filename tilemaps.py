@@ -58,13 +58,26 @@ kitchen_map.append([1]*15)
 
 # Flur (2. Etage)
 floor2_corridor = [
-    [1]*25,  # obere Wand
+    [1]*27,  # obere Wand
 ]
-row = [1] + [0]*22 + [3] +[1]
+row = [1] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*7 + [3] + [1]
 floor2_corridor.append(row)
 for i in range(8):
-    row = [1] + [0]*23 + [1]  # langer Gang
+    row = [1] + [0]*25 + [1]  # langer Gang
     floor2_corridor.append(row)
-
+row = [1] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*8 + [1]
+floor2_corridor.append(row)
 # untere Wand
-floor2_corridor.append([1]*25)
+floor2_corridor.append([1]*27)
+
+
+# Raum01 (2. Etage)
+room01  = [
+    [1]*15
+]
+for i in range(13):
+    row = [1] + [0]*13 + [1]
+    room01.append(row)
+row = [1] + [0]*6 + [4] + [0]*6 + [1]
+room01.append(row)
+room01.append([1]*15)
