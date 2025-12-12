@@ -10,14 +10,27 @@ class Door:
         self.target_spawn = target_spawn
         self.locked = locked
 
+class Stair:
+    def __init__(self, stair_id, position, target_room, target_spawn,
+                 direction, floor_change, locked=False, label=None):
+        self.id = stair_id
+        self.position = position          # (row, col)
+        self.target_room = target_room
+        self.target_spawn = target_spawn
+        self.direction = direction        # "up" oder "down"
+        self.floor_change = floor_change  # +1 oder -1
+        self.locked = locked
+        self.label = label
+
+
 class Room:
-    def __init__(self, name, floor, tilemap, doors, spawns):
+    def __init__(self, name, floor, tilemap, doors, stairs, spawns):
         self.name = name
         self.floor = floor
         self.tilemap = tilemap
         self.doors = doors            # dict: door_id -> Door
         self.spawns = spawns          # dict: spawn_id -> (x, y)
-
+        self.stairs = stairs          # dict: stair_id -> Stair
         self.obstacles = self._build_obstacles()
 
     def _build_obstacles(self):
@@ -49,3 +62,13 @@ class Room:
                     return None  # Tür ist zu
                 return door
         return None
+    
+    def check_for_stair(self, player_row, player_col):
+        for stair in self.stairs.values():
+            if stair.position == (player_row, player_col):
+                if stair.locked:
+                    return None
+                return stair
+        return None
+
+

@@ -35,6 +35,13 @@ while True:
     col = player.rect.centerx // TILE_SIZE
     door = current_room.check_for_door(row, col)
 
+    # Treppen-Check
+    stair = current_room.check_for_stair(row, col)
+    if stair:
+        current_room = rooms[stair.target_room]
+        spawn_x, spawn_y = current_room.spawns[stair.target_spawn]
+        player.rect.center = (spawn_x, spawn_y)    
+
     if door:
         current_room = rooms[door.target_room]
         spawn_x, spawn_y = current_room.spawns[door.target_spawn]

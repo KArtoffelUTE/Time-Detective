@@ -2,6 +2,18 @@ import pygame
 
 TILE_SIZE = 32
 
+# Farben
+tile_colors = {
+    0: (200, 200, 200),  # Boden
+    1: (100, 100, 100),  # Wand
+    2: (0, 0, 255),      # Treppe hoch
+    3: (0, 255, 0),      # Treppe runter
+    4: (150, 75, 0),     # Tür
+    5: (255, 0, 0),      # Tresen / Arbeitsfläche
+    6: (180, 180, 50),   # Tisch
+}
+
+
 # Lobby 
 lobby_map = [
     [1]*25,
@@ -11,7 +23,7 @@ for i in range(18):
     if i == 2:
         row[5:11] = [5,5,5,5,5,5]  # Tresen
     lobby_map.append(row)
-row = [1] + [0]*10 + [4] + [0]*9 + [2,3] + [0, 1]
+row = [1] + [0]*10 + [4] + [0]*9 + [0, 0, 2] + [1]
 lobby_map.append(row)
 lobby_map.append([1]*25)
 
@@ -44,13 +56,15 @@ kitchen_map.append(row)
 kitchen_map.append([1]*15)
 
 
-# Farben
-tile_colors = {
-    0: (200, 200, 200),  # Boden
-    1: (100, 100, 100),  # Wand
-    2: (0, 0, 255),      # Treppe hoch
-    3: (0, 255, 0),      # Treppe runter
-    4: (150, 75, 0),     # Tür
-    5: (255, 0, 0),      # Tresen / Arbeitsfläche
-    6: (180, 180, 50),   # Tisch
-}
+# Flur (2. Etage)
+floor2_corridor = [
+    [1]*25,  # obere Wand
+]
+row = [1] + [0]*22 + [3] +[1]
+floor2_corridor.append(row)
+for i in range(8):
+    row = [1] + [0]*23 + [1]  # langer Gang
+    floor2_corridor.append(row)
+
+# untere Wand
+floor2_corridor.append([1]*25)
