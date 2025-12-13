@@ -184,3 +184,14 @@ for i in range(20):
 row = [1] + [0]*12 + [4] + [0]*12 + [1]
 room03_b.append(row)
 room03_b.append([1]*27)
+
+#großer Raum 2
+room04_b = [
+    [1]*27
+]
+for i in range(20):
+    row = [1] + [0]*25 + [1]
+    room04_b.append(row)
+row = [1] + [0]*12 + [4] + [0]*12 + [1]
+room04_b.append(row)
+room04_b.append([1]*27)
