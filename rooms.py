@@ -1,5 +1,5 @@
 from room import Room, Door, Stair
-from tilemaps import lobby_map, restaurant_map, kitchen_map, floor2_corridor , room01, room02, room03, room04, room05, room06, floor3_corridor
+from tilemaps import lobby_map, restaurant_map, kitchen_map, floor2_corridor , room01, room02, room03, room04, room05, room06, floor3_corridor, room01_b
 from tilemaps import TILE_SIZE
 
 rooms = {}
@@ -271,7 +271,14 @@ rooms["floor3_corridor"] = Room(
     name="floor3_corridor",
     floor=3,
     tilemap=floor3_corridor,
-    doors={},
+    doors={
+        "to_room01_b": Door(
+            "to_room01_b",
+            position=(1, 13),
+            target_room="room01_b",
+            target_spawn="from_corridor"
+        )
+    },
     stairs={
         "floor3_corridor_down": Stair(
             "floor3_corridor_down",
@@ -283,6 +290,25 @@ rooms["floor3_corridor"] = Room(
         )        
     },
     spawns={
-        "from_floor2_corridor": (21*TILE_SIZE, 2*TILE_SIZE)
+        "from_floor2_corridor": (21*TILE_SIZE, 2*TILE_SIZE),
+        "from_room01_b": (14*TILE_SIZE, 2*TILE_SIZE)
+    }
+)
+
+rooms["room01_b"] = Room(
+    name="room01_b",
+    floor=3,
+    tilemap=room01_b,
+    doors={
+        "to_corridor": Door(
+            "to_corridor",
+            position=(21, 13),
+            target_room="floor3_corridor",
+            target_spawn="from_room01_b"
+        )
+    },
+    stairs={},
+    spawns={
+        "from_corridor": (14*TILE_SIZE, 20*TILE_SIZE)
     }
 )

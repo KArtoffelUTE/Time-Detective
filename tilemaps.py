@@ -151,3 +151,14 @@ row = [1] + [4] + [0]*11 + [4] + [0]*11 + [2] + [1]
 floor3_corridor.append(row)
 # untere Wand
 floor3_corridor.append([1]*27)
+
+#großer Raum 1
+room01_b = [
+    [1]*27
+]
+for i in range(20):
+    row = [1] + [0]*25 + [1]
+    room01_b.append(row)
+row = [1] + [0]*12 + [4] + [0]*12 + [1]
+room01_b.append(row)
+room01_b.append([1]*27)
