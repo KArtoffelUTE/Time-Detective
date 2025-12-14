@@ -212,7 +212,7 @@ roof.append([1]*31)
 floor4_corridor = [
     [1]*27,  # obere Wand
 ]
-row = [1] + [4] + [0]*11 + [4] + [0]*11 + [3] + [1]
+row = [1] + [0] + [0]*11 + [4] + [0]*11 + [3] + [1]
 floor4_corridor.append(row)
 for i in range(8):
     row = [1] + [0]*25 + [1]  # langer Gang
