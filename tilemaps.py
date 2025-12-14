@@ -221,3 +221,15 @@ row = [1] + [0] + [0]*11 + [4] + [0]*11 + [2] + [1]
 floor4_corridor.append(row)
 # untere Wand
 floor4_corridor.append([1]*27)
+
+#Schwimmbad
+swimming = [
+    [1]*27
+]
+for i in range(11):
+    if i == 5:
+        row = [1] + [0]*24 +[4] +[1]
+    else:
+        row = [1] + [0]*25 + [1]
+    swimming.append(row)
+swimming.append([1]*27)
