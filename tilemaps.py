@@ -207,3 +207,17 @@ for i in range(30):
         row = [1] + [0]*29 +[1]
     roof.append(row)
 roof.append([1]*31)
+
+#Flur Etage 4
+floor4_corridor = [
+    [1]*27,  # obere Wand
+]
+row = [1] + [4] + [0]*11 + [4] + [0]*11 + [3] + [1]
+floor4_corridor.append(row)
+for i in range(8):
+    row = [1] + [0]*25 + [1]  # langer Gang
+    floor4_corridor.append(row)
+row = [1] + [0] + [0]*11 + [4] + [0]*11 + [2] + [1]
+floor4_corridor.append(row)
+# untere Wand
+floor4_corridor.append([1]*27)

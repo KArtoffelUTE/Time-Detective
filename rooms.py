@@ -1,5 +1,6 @@
 from room import Room, Door, Stair
-from tilemaps import lobby_map, restaurant_map, kitchen_map, floor2_corridor , room01, room02, room03, room04, room05, room06, floor3_corridor, room01_b, room02_b, room03_b, roof
+from tilemaps import lobby_map, restaurant_map, kitchen_map, floor2_corridor , room01, room02, room03, room04, room05, room06, floor3_corridor, room01_b, room02_b, room03_b
+from tilemaps import roof, floor4_corridor
 from tilemaps import TILE_SIZE
 
 rooms = {}
@@ -309,8 +310,8 @@ rooms["floor3_corridor"] = Room(
         "floor3_corridor_up": Stair(
             "floor3_corridor_up",
             position=(10, 25),
-            target_room="roof",
-            target_spawn="from_corridor",
+            target_room="floor4_corridor",
+            target_spawn="from_floor3_corridor",
             direction="up",
             floor_change=+1
         )
@@ -321,7 +322,7 @@ rooms["floor3_corridor"] = Room(
         "from_room02_b": (14*TILE_SIZE, 9*TILE_SIZE),
         "from_room03_b": (2*TILE_SIZE, 2*TILE_SIZE),
         "from_room04_b": (2*TILE_SIZE, 9*TILE_SIZE),
-        "from_roof": (21*TILE_SIZE, 9*TILE_SIZE)
+        "from_floor4_corridor": (21*TILE_SIZE, 9*TILE_SIZE)
     }
 )
 
@@ -397,16 +398,38 @@ rooms["room04_b"] = Room(
     }
 )
 
+rooms["floor4_corridor"] = Room(
+    name="floor4_corridor",
+    floor=4,
+    tilemap=floor4_corridor,
+    doors={
+
+    },
+    stairs={
+        "floor4_corridor_down": Stair(
+            "floor4_corridor_down",
+            position=(1, 25),     
+            target_room="floor3_corridor",
+            target_spawn="from_floor4_corridor",
+            direction="down",
+            floor_change=-1
+        )
+    },
+    spawns={
+        "from_floor3_corridor": (21*TILE_SIZE, 2*TILE_SIZE),
+    },
+)
+
 rooms["roof"] = Room(
     name="roof",
-    floor=4,
+    floor=5,
     tilemap=roof,
     doors={},
     stairs={
         "to_corridor": Stair(
             "to_ccorridor",
             position=(16, 15),
-            target_room="floor3_corridor",
+            target_room="floor4_corridor",
             target_spawn="from_roof",
             direction="down",
             floor_change=-1
