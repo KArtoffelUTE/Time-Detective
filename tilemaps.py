@@ -200,7 +200,7 @@ room04_b.append([1]*27)
 roof = [
     [1]*31
 ]
-for i in range(30):
+for i in range(31):
     if i == 15:
         row = [1] + [0]*14 + [3] + [0]*14 + [1]
     else:
@@ -233,3 +233,14 @@ for i in range(11):
         row = [1] + [0]*25 + [1]
     swimming.append(row)
 swimming.append([1]*27)
+
+#Bar
+bar = [
+    [1]*21
+]
+for i in range(16):
+    row = [1] + [0]*19 + [1]
+    bar.append(row)
+row = [1] + [0]*9 + [4] + [0]*9 + [1]
+bar.append(row)
+bar.append([1]*21)
