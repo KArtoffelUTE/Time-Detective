@@ -174,7 +174,7 @@ row = [1] + [0]*12 + [4] + [0]*12 + [1]
 room02_b.append(row)
 room02_b.append([1]*27)
 
-#großer Raum 2
+#großer Raum 3
 room03_b = [
     [1]*27
 ]
@@ -185,7 +185,7 @@ row = [1] + [0]*12 + [4] + [0]*12 + [1]
 room03_b.append(row)
 room03_b.append([1]*27)
 
-#großer Raum 2
+#großer Raum 4
 room04_b = [
     [1]*27
 ]
@@ -195,3 +195,15 @@ for i in range(20):
 row = [1] + [0]*12 + [4] + [0]*12 + [1]
 room04_b.append(row)
 room04_b.append([1]*27)
+
+#Dachboden
+roof = [
+    [1]*31
+]
+for i in range(30):
+    if i == 15:
+        row = [1] + [0]*14 + [3] + [0]*14 + [1]
+    else:
+        row = [1] + [0]*29 +[1]
+    roof.append(row)
+roof.append([1]*31)
