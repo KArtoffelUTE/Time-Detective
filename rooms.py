@@ -1,6 +1,6 @@
 from room import Room, Door, Stair
 from tilemaps import lobby_map, restaurant_map, kitchen_map, floor2_corridor , room01, room02, room03, room04, room05, room06, floor3_corridor, room01_b, room02_b, room03_b
-from tilemaps import roof, floor4_corridor, swimming, bar
+from tilemaps import roof, floor4_corridor, swimming, bar, office
 from tilemaps import TILE_SIZE
 
 rooms = {}
@@ -15,6 +15,12 @@ rooms["lobby"] = Room(
             "to_restaurant",
             position=(19, 11),
             target_room="restaurant",
+            target_spawn="from_lobby"
+        ),
+        "to_office": Door(
+            "to_office",
+            position=(1, 1),
+            target_room="office",
             target_spawn="from_lobby"
         )
     },
@@ -31,6 +37,25 @@ rooms["lobby"] = Room(
     spawns={
         "from_restaurant": (10*TILE_SIZE, 18*TILE_SIZE),
         "from_corridor": (21*TILE_SIZE, 18*TILE_SIZE),
+        "from_office": (2*TILE_SIZE, 2*TILE_SIZE)
+    }
+)
+
+rooms["office"] = Room(
+    name="office",
+    floor=1,
+    tilemap=office,
+    doors={
+        "to_lobby": Door(
+            "to_lobby",
+            position=(21, 8),
+            target_room="lobby",
+            target_spawn="from_office",
+        )
+    },
+    stairs={},
+    spawns={
+        "from_lobby": (7*TILE_SIZE, 20*TILE_SIZE)
     }
 )
 

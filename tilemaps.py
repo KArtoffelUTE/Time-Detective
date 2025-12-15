@@ -18,7 +18,9 @@ tile_colors = {
 lobby_map = [
     [1]*25,
 ]
-for i in range(18):
+row = [1] + [4]+ [0]*22 + [1]
+lobby_map.append(row)
+for i in range(17):
     row = [1] + [0]*23 + [1]
     if i == 2:
         row[5:11] = [5,5,5,5,5,5]  # Tresen
@@ -27,6 +29,16 @@ row = [1] + [0]*10 + [4] + [0]*9 + [0, 0, 2] + [1]
 lobby_map.append(row)
 lobby_map.append([1]*25)
 
+#Buero
+office = [
+    [1]*17
+]
+for i in range(20):
+    row = [1] + [0]*15 + [1]
+    office.append(row)
+row = [1] + [0]*7 + [4] + [0]*7 + [1]
+office.append(row)
+office.append([1]*17)
 
 # Restaurant 
 restaurant_map = [
