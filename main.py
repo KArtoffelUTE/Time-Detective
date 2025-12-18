@@ -1,7 +1,7 @@
 import pygame, sys
 from player import Player
 from rooms import rooms
-from tilemaps import TILE_SIZE
+from tilemaps import TILE_SIZE, load_tiles
 
 pygame.init()
 
@@ -15,6 +15,8 @@ WHITE = (255, 255, 255)
 current_room = rooms["lobby"]
 spawn_x, spawn_y = current_room.spawns["from_restaurant"]
 player = Player(spawn_x, spawn_y)
+
+load_tiles()
 
 clock = pygame.time.Clock()
 

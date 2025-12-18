@@ -2,6 +2,24 @@ import pygame
 
 TILE_SIZE = 32
 
+def get_tile(sheet, x, y, w=16, h=16):
+    tile = pygame.Surface((w, h), pygame.SRCALPHA)
+    tile.blit(sheet, (0, 0), (x, y, w, h))
+    return pygame.transform.scale(tile, (TILE_SIZE, TILE_SIZE))
+
+tile_images = {}
+def load_tiles():
+    global tile_images
+
+    sprite_sheet = pygame.image.load("assets/Tileset.png").convert_alpha()
+
+    floor_carpet = get_tile(sprite_sheet, 16, 32, 16, 16)
+
+    tile_images.clear()
+    tile_images[0] = floor_carpet
+
+
+
 # Farben
 tile_colors = {
     0: (200, 200, 200),  # Boden

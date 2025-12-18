@@ -1,6 +1,5 @@
 import pygame
-from tilemaps import TILE_SIZE, tile_colors
-from tilemaps import lobby_map, restaurant_map, kitchen_map
+from tilemaps import TILE_SIZE, tile_colors, tile_images
 
 class Door:
     def __init__(self, door_id, position, target_room, target_spawn, locked=False):
@@ -52,8 +51,16 @@ class Room:
             for c, tile in enumerate(row):
                 x = c * TILE_SIZE - camera_x
                 y = r * TILE_SIZE - camera_y
-                color = tile_colors.get(tile, (0, 0, 0))
-                pygame.draw.rect(screen, color, (x, y, TILE_SIZE, TILE_SIZE))
+
+                image = tile_images.get(tile)
+
+                if image:
+                    # Bild existiert → zeichnen
+                    screen.blit(image, (x, y))
+                else:
+                    # Kein Bild → fallback auf Farbe
+                    color = tile_colors.get(tile, (255, 0, 255))  # Pink = Fehler sichtbar
+                    pygame.draw.rect(screen, color, (x, y, TILE_SIZE, TILE_SIZE))
 
     def check_for_door(self, player_row, player_col):
         for door in self.doors.values():
