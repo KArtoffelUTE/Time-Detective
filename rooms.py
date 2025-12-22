@@ -13,13 +13,13 @@ rooms["lobby"] = Room(
     doors={
         "to_restaurant": Door(
             "to_restaurant",
-            position=(19, 11),
+            position=(20, 11),
             target_room="restaurant",
             target_spawn="from_lobby"
         ),
         "to_office": Door(
             "to_office",
-            position=(1, 1),
+            position=(2, 1),
             target_room="office",
             target_spawn="from_lobby"
         )
@@ -27,7 +27,7 @@ rooms["lobby"] = Room(
     stairs={
         "lobby_up": Stair(
             "lobby_up",
-            position=(19, 23),      # Tile 2
+            position=(20, 23),      # Tile 2
             target_room="floor2_corridor",
             target_spawn="from_lobby",
             direction="up",
@@ -37,7 +37,7 @@ rooms["lobby"] = Room(
     spawns={
         "from_restaurant": (10*TILE_SIZE, 18*TILE_SIZE),
         "from_corridor": (21*TILE_SIZE, 18*TILE_SIZE),
-        "from_office": (2*TILE_SIZE, 2*TILE_SIZE)
+        "from_office": (2*TILE_SIZE, 3*TILE_SIZE)
     }
 )
 
@@ -48,14 +48,14 @@ rooms["office"] = Room(
     doors={
         "to_lobby": Door(
             "to_lobby",
-            position=(21, 8),
+            position=(22, 8),
             target_room="lobby",
             target_spawn="from_office",
         )
     },
     stairs={},
     spawns={
-        "from_lobby": (7*TILE_SIZE, 20*TILE_SIZE)
+        "from_lobby": (7*TILE_SIZE, 19*TILE_SIZE)
     }
 )
 

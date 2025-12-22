@@ -11,19 +11,37 @@ tile_images = {}
 def load_tiles():
     global tile_images
 
-    sprite_sheet = pygame.image.load("assets/Tileset.png").convert_alpha()
+    sprite_sheet = pygame.image.load("assets/Tileset_my.png").convert_alpha()
 
-    floor_carpet = get_tile(sprite_sheet, 16, 32, 16, 16)
+    floor_carpet = get_tile(sprite_sheet, 0, 0, 16, 16)
+    up_wall = get_tile(sprite_sheet, 16, 0, 16, 16)
+    down_wall = get_tile(sprite_sheet, 32, 0, 16, 16)
+    up_side_wall = get_tile(sprite_sheet, 48, 0, 16, 16)
+    left_side_wall = get_tile(sprite_sheet, 64, 0, 16, 16)
+    right_side_wall = get_tile(sprite_sheet, 80, 0, 16, 16)
+    left_corner_up_wall = get_tile(sprite_sheet, 96, 0, 16, 16)
+    right_corner_up_wall = get_tile(sprite_sheet, 112, 0, 16, 16)
+    left_corner_down_wall = get_tile(sprite_sheet, 128, 0, 16, 16)
+    right_corner_down_wall = get_tile(sprite_sheet, 144, 0, 16, 16)
 
     tile_images.clear()
     tile_images[0] = floor_carpet
-
+    tile_images[1]= up_wall
+    tile_images[1.1] = down_wall
+    tile_images[1.2] = up_side_wall
+    tile_images[1.3] = left_side_wall
+    tile_images[1.4] = right_side_wall
+    tile_images[1.5] = left_corner_up_wall
+    tile_images[1.6] = right_corner_up_wall
+    tile_images[1.7] = left_corner_down_wall
+    tile_images[1.8] = right_corner_down_wall
 
 
 # Farben
 tile_colors = {
     0: (200, 200, 200),  # Boden
     1: (100, 100, 100),  # Wand
+    1.1: (100, 100, 100), #Wand Seite
     2: (0, 0, 255),      # Treppe hoch
     3: (0, 255, 0),      # Treppe runter
     4: (150, 75, 0),     # Tür
@@ -34,29 +52,31 @@ tile_colors = {
 
 # Lobby 
 lobby_map = [
-    [1]*25,
+    [1.5]+[1.2]*23+[1.6],
 ]
-row = [1] + [4]+ [0]*22 + [1]
+lobby_map.append([1.3]+[1]*23+[1.4])
+row = [1.3] + [4]+ [0]*22 + [1.4]
 lobby_map.append(row)
 for i in range(17):
-    row = [1] + [0]*23 + [1]
+    row = [1.3] + [0]*23 + [1.4]
     if i == 2:
         row[5:11] = [5,5,5,5,5,5]  # Tresen
     lobby_map.append(row)
-row = [1] + [0]*10 + [4] + [0]*9 + [0, 0, 2] + [1]
+row = [1.3] + [0]*10 + [4] + [0]*9 + [0, 0, 2] + [1.4]
 lobby_map.append(row)
-lobby_map.append([1]*25)
+lobby_map.append([1.7]+[1.1]*23+[1.8])
 
 #Buero
 office = [
-    [1]*17
+    [1.5]+[1.2]*15+[1.6]
 ]
+office.append([1.3]+[1]*15+[1.4])
 for i in range(20):
-    row = [1] + [0]*15 + [1]
+    row = [1.3] + [0]*15 + [1.4]
     office.append(row)
-row = [1] + [0]*7 + [4] + [0]*7 + [1]
+row = [1.3] + [0]*7 + [4] + [0]*7 + [1.4]
 office.append(row)
-office.append([1]*17)
+office.append([1.7]+[1.1]*15+[1.8])
 
 # Restaurant 
 restaurant_map = [

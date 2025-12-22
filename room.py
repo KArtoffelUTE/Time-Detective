@@ -36,7 +36,7 @@ class Room:
         obstacles = []
         for r, row in enumerate(self.tilemap):
             for c, tile in enumerate(row):
-                if tile in (1, 5, 6):  # Wand, Tresen, Tisch
+                if tile in (1, 5, 6, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8):  # Wand, Tresen, Tisch
                     rect = pygame.Rect(
                         c * TILE_SIZE,
                         r * TILE_SIZE,
