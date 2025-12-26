@@ -67,21 +67,21 @@ rooms["restaurant"] = Room(
     doors={
         "to_lobby": Door(
             "to_lobby",
-            position=(41, 6),
+            position=(42, 6),
             target_room="lobby",
             target_spawn="from_restaurant"
         ),
         "to_kitchen": Door(
             "to_kitchen",
-            position=(41, 18),
+            position=(42, 18),
             target_room="kitchen",
             target_spawn="from_restaurant"
         )
     },
     stairs={},  # Restaurant hat keine Treppen
     spawns={
-        "from_lobby": (5*TILE_SIZE, 40*TILE_SIZE),
-        "from_kitchen": (17*TILE_SIZE, 40*TILE_SIZE)
+        "from_lobby": (5*TILE_SIZE, 41*TILE_SIZE),
+        "from_kitchen": (17*TILE_SIZE, 41*TILE_SIZE)
     }
 )
 
@@ -93,14 +93,14 @@ rooms["kitchen"] = Room(
     doors={
         "to_restaurant": Door(
             "to_restaurant",
-            position=(14, 7),
+            position=(15, 7),
             target_room="restaurant",
             target_spawn="from_kitchen"
         )
     },
     stairs={},  # Küche hat keine Treppen
     spawns={
-        "from_restaurant": (6*TILE_SIZE, 13*TILE_SIZE)
+        "from_restaurant": (6*TILE_SIZE, 14*TILE_SIZE)
     }
 )
 
@@ -112,37 +112,37 @@ rooms["floor2_corridor"] = Room(
     doors={
         "to_room01": Door(
             "to_room01",
-            position=(1, 17),
+            position=(2, 17),
             target_room="room01",
             target_spawn="from_corridor"
         ),
         "to_room02": Door(
             "to_room02",
-            position=(10, 17),
+            position=(11, 17),
             target_room="room02",
             target_spawn="from_corridor"
         ),
         "to_room03": Door(
             "to_room03",
-            position=(1, 9),
+            position=(2, 9),
             target_room="room03",
             target_spawn="from_corridor"
         ),
         "to_room04": Door(
             "to_room04",
-            position=(10, 9),
+            position=(11, 9),
             target_room="room04",
             target_spawn="from_corridor"
         ),
         "to_room05": Door(
             "to_room05",
-            position=(1, 1),
+            position=(2, 1),
             target_room="room05",
             target_spawn="from_corridor"
         ),
         "to_room06": Door(
             "to_room06",
-            position=(10, 1),
+            position=(11, 1),
             target_room="room06",
             target_spawn="from_corridor"
         )
@@ -150,7 +150,7 @@ rooms["floor2_corridor"] = Room(
     stairs={
         "floor2_corridor_down": Stair(
             "floor2_corridor_down",
-            position=(1, 25),      # Treppe zurück zur Lobby
+            position=(2, 25),      # Treppe zurück zur Lobby
             target_room="lobby",
             target_spawn="from_corridor",
             direction="down",
@@ -158,22 +158,22 @@ rooms["floor2_corridor"] = Room(
         ),
         "floor2_corridor_up": Stair(
             "floor2_corridor_up",
-            position=(10, 25),
+            position=(11, 25),
             target_room="floor3_corridor",
             target_spawn="from_floor2_corridor",
             direction="up",
-            floor_change=-1
+            floor_change=+1
         )
     },
     spawns={
-        "from_lobby": (21*TILE_SIZE, 2*TILE_SIZE),
-        "from_room01": (18*TILE_SIZE, 2*TILE_SIZE),
-        "from_room02": (18*TILE_SIZE, 9*TILE_SIZE),
-        "from_room03": (10*TILE_SIZE, 2*TILE_SIZE),
-        "from_room04": (10*TILE_SIZE, 9*TILE_SIZE),
-        "from_room05": (2*TILE_SIZE, 2*TILE_SIZE),
-        "from_room06": (2*TILE_SIZE, 9*TILE_SIZE),
-        "from_floor3_corridor": (21*TILE_SIZE, 9*TILE_SIZE)
+        "from_lobby": (21*TILE_SIZE, 3*TILE_SIZE),
+        "from_room01": (18*TILE_SIZE, 3*TILE_SIZE),
+        "from_room02": (18*TILE_SIZE, 10*TILE_SIZE),
+        "from_room03": (10*TILE_SIZE, 3*TILE_SIZE),
+        "from_room04": (10*TILE_SIZE, 10*TILE_SIZE),
+        "from_room05": (2*TILE_SIZE, 3*TILE_SIZE),
+        "from_room06": (2*TILE_SIZE, 10*TILE_SIZE),
+        "from_floor3_corridor": (21*TILE_SIZE, 10*TILE_SIZE)
     }
 )
 
@@ -185,14 +185,14 @@ rooms["room01"] = Room(
     doors={
         "to_corridor": Door(
             "to_corridor",
-            position=(14, 7),
+            position=(15, 7),
             target_room="floor2_corridor",
             target_spawn="from_room01"
         )
     },
     stairs={},
     spawns={
-        "from_corridor": (6*TILE_SIZE, 13*TILE_SIZE)
+        "from_corridor": (6*TILE_SIZE, 14*TILE_SIZE)
     }
 )
 
@@ -204,14 +204,14 @@ rooms["room02"] = Room(
     doors={
         "to_corridor": Door(
             "to_corridor",
-            position=(14, 7),
+            position=(15, 7),
             target_room="floor2_corridor",
             target_spawn="from_room02"
         )
     },
     stairs={},
     spawns={
-        "from_corridor": (6*TILE_SIZE, 13*TILE_SIZE)
+        "from_corridor": (6*TILE_SIZE, 14*TILE_SIZE)
     }
 )
 
@@ -223,14 +223,14 @@ rooms["room03"] = Room(
     doors={
         "to_corridor": Door(
             "to_corridor",
-            position=(14, 7),
+            position=(15, 7),
             target_room="floor2_corridor",
             target_spawn="from_room03"
         )
     },
     stairs={},
     spawns={
-        "from_corridor": (6*TILE_SIZE, 13*TILE_SIZE)
+        "from_corridor": (6*TILE_SIZE, 14*TILE_SIZE)
     }
 )
 
@@ -242,14 +242,14 @@ rooms["room04"] = Room(
     doors={
         "to_corridor": Door(
             "to_corridor",
-            position=(14, 7),
+            position=(15, 7),
             target_room="floor2_corridor",
             target_spawn="from_room04"
         )
     },
     stairs={},
     spawns={
-        "from_corridor": (6*TILE_SIZE, 13*TILE_SIZE)
+        "from_corridor": (6*TILE_SIZE, 14*TILE_SIZE)
     }
 )
 
@@ -261,14 +261,14 @@ rooms["room05"] = Room(
     doors={
         "to_corridor": Door(
             "to_corridor",
-            position=(14, 7),
+            position=(15, 7),
             target_room="floor2_corridor",
             target_spawn="from_room05"
         )
     },
     stairs={},
     spawns={
-        "from_corridor": (6*TILE_SIZE, 13*TILE_SIZE)
+        "from_corridor": (6*TILE_SIZE, 14*TILE_SIZE)
     }
 )
 
@@ -280,14 +280,14 @@ rooms["room06"] = Room(
     doors={
         "to_corridor": Door(
             "to_corridor",
-            position=(14, 7),
+            position=(15, 7),
             target_room="floor2_corridor",
             target_spawn="from_room06"
         )
     },
     stairs={},
     spawns={
-        "from_corridor": (6*TILE_SIZE, 13*TILE_SIZE)
+        "from_corridor": (6*TILE_SIZE, 14*TILE_SIZE)
     }
 )
 

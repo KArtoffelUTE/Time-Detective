@@ -80,112 +80,121 @@ office.append([1.7]+[1.1]*15+[1.8])
 
 # Restaurant 
 restaurant_map = [
-    [1]*25,
+    [1.5]+ [1.2]*23+[1.6],
 ]
+restaurant_map.append([1.3]+[1]*23+[1.4])
 for i in range(40):
-    row = [1] + [0]*23 + [1]
+    row = [1.3] + [0]*23 + [1.4]
     if i == 5:
         row[5:20:3] = [6,6,6,6,6]  # Tische
     restaurant_map.append(row)
-row = [1] + [0]*5 + [4] + [0]*11 + [4] + [0]*5 + [1]
+row = [1.3] + [0]*5 + [4] + [0]*11 + [4] + [0]*5 + [1.4]
 restaurant_map.append(row)
-restaurant_map.append([1]*25)
+restaurant_map.append([1.7]+[1.1]*23+[1.8])
 
 
 # Küche
 kitchen_map = [
-    [1]*15,
+    [1.5]+[1.2]*13+[1.6],
 ]
+kitchen_map.append([1.3]+[1]*13+[1.4])
 for i in range(13):
-    row = [1] + [0]*13 + [1]
+    row = [1.3] + [0]*13 + [1.4]
     if i == 3:
         row[3:12] = [5]*9  # Arbeitsfläche
     kitchen_map.append(row)
-row = [1] + [0]*6 + [4] + [0]*6 + [1]
+row = [1.3] + [0]*6 + [4] + [0]*6 + [1.4]
 kitchen_map.append(row)
-kitchen_map.append([1]*15)
+kitchen_map.append([1.7]+[1.1]*13+[1.8])
 
 
 # Flur (2. Etage)
 floor2_corridor = [
-    [1]*27,  # obere Wand
+    [1.5]+[1.2]*25+[1.6]
 ]
-row = [1] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*7 + [3] + [1]
+floor2_corridor.append([1.3]+[1]*25+[1.4])
+row = [1.3] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*7 + [3] + [1.4]
 floor2_corridor.append(row)
 for i in range(8):
-    row = [1] + [0]*25 + [1]  # langer Gang
+    row = [1.3] + [0]*25 + [1.4]  # langer Gang
     floor2_corridor.append(row)
-row = [1] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*7 + [2] + [1]
+row = [1.3] + [4] + [0]*7 + [4] + [0]*7 + [4] + [0]*7 + [2] + [1.4]
 floor2_corridor.append(row)
 # untere Wand
-floor2_corridor.append([1]*27)
+floor2_corridor.append([1.7]+[1.1]*25+[1.8])
 
 
 # Raum01 (2. Etage)
 room01  = [
-    [1]*15
+    [1.5]+[1.2]*13+[1.6]
 ]
+room01.append([1.3] +[1]*13+[1.4])
 for i in range(13):
-    row = [1] + [0]*13 + [1]
+    row = [1.3] + [0]*13 + [1.4]
     room01.append(row)
-row = [1] + [0]*6 + [4] + [0]*6 + [1]
+row = [1.3] + [0]*6 + [4] + [0]*6 + [1.4]
 room01.append(row)
-room01.append([1]*15)
+room01.append([1.7]+[1.1]*13+[1.8])
 
 # Raum02 (2. Etage)
 room02  = [
-    [1]*15
+    [1.5]+[1.2]*13+[1.6]
 ]
+room02.append([1.3] +[1]*13+[1.4])
 for i in range(13):
-    row = [1] + [0]*13 + [1]
+    row = [1.3] + [0]*13 + [1.4]
     room02.append(row)
-row = [1] + [0]*6 + [4] + [0]*6 + [1]
+row = [1.3] + [0]*6 + [4] + [0]*6 + [1.4]
 room02.append(row)
-room02.append([1]*15)
+room02.append([1.7]+[1.1]*13+[1.8])
 
 # Raum03 (2. Etage)
 room03  = [
-    [1]*15
+    [1.5]+[1.2]*13+[1.6]
 ]
+room03.append([1.3] +[1]*13+[1.4])
 for i in range(13):
-    row = [1] + [0]*13 + [1]
+    row = [1.3] + [0]*13 + [1.4]
     room03.append(row)
-row = [1] + [0]*6 + [4] + [0]*6 + [1]
+row = [1.3] + [0]*6 + [4] + [0]*6 + [1.4]
 room03.append(row)
-room03.append([1]*15)
+room03.append([1.7]+[1.1]*13+[1.8])
 
 # Raum04 (2. Etage)
 room04  = [
-    [1]*15
+    [1.5]+[1.2]*13+[1.6]
 ]
+room04.append([1.3] +[1]*13+[1.4])
 for i in range(13):
-    row = [1] + [0]*13 + [1]
+    row = [1.3] + [0]*13 + [1.4]
     room04.append(row)
-row = [1] + [0]*6 + [4] + [0]*6 + [1]
+row = [1.3] + [0]*6 + [4] + [0]*6 + [1.4]
 room04.append(row)
-room04.append([1]*15)
+room04.append([1.7]+[1.1]*13+[1.8])
 
 # Raum05 (2. Etage)
 room05  = [
-    [1]*15
+    [1.5]+[1.2]*13+[1.6]
 ]
+room05.append([1.3] +[1]*13+[1.4])
 for i in range(13):
-    row = [1] + [0]*13 + [1]
+    row = [1.3] + [0]*13 + [1.4]
     room05.append(row)
-row = [1] + [0]*6 + [4] + [0]*6 + [1]
+row = [1.3] + [0]*6 + [4] + [0]*6 + [1.4]
 room05.append(row)
-room05.append([1]*15)
+room05.append([1.7]+[1.1]*13+[1.8])
 
 # Raum06 (2. Etage)
 room06  = [
-    [1]*15
+    [1.5]+[1.2]*13+[1.6]
 ]
+room06.append([1.3] +[1]*13+[1.4])
 for i in range(13):
-    row = [1] + [0]*13 + [1]
+    row = [1.3] + [0]*13 + [1.4]
     room06.append(row)
-row = [1] + [0]*6 + [4] + [0]*6 + [1]
+row = [1.3] + [0]*6 + [4] + [0]*6 + [1.4]
 room06.append(row)
-room06.append([1]*15)
+room06.append([1.7]+[1.1]*13+[1.8])
 
 
 #Flur Etage 3
